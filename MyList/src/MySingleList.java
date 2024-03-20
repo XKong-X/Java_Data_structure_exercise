@@ -101,8 +101,11 @@ public class MySingleList implements IList {
 
     @Override
     public void remove(int key) {
-        if (this.head == null) {
-            System.out.println("当前链表无数据，无法进行删除！");
+//        if (this.head == null) {
+//            System.out.println("当前链表无数据，无法进行删除！");
+//            return;
+//        }
+        if (isEmpty()) {
             return;
         }
 
@@ -120,6 +123,14 @@ public class MySingleList implements IList {
         tmp.next = del.next;
     }
 
+    private boolean isEmpty() {
+        if (this.head == null) {
+            System.out.println("当前链表无数据，无法进行删除！");
+            return true;
+        }
+        return false;
+    }
+
     private ListNode findPrev(int key) {
         ListNode tmp = this.head;
         while (tmp.next != null) {
@@ -133,7 +144,22 @@ public class MySingleList implements IList {
 
     @Override
     public void removeAllKey(int key) {
-
+        if (isEmpty()) {
+            return;
+        }
+        ListNode prev = this.head;
+        ListNode tmp = this.head.next;
+        while (tmp != null) {
+            if (tmp.val == key) {
+                prev.next = tmp.next;
+            } else {
+                prev = tmp;
+            }
+            tmp = tmp.next;
+        }
+        if (this.head.val == key) {
+            this.head = null;
+        }
     }
 
     @Override
@@ -149,7 +175,13 @@ public class MySingleList implements IList {
 
     @Override
     public void clear() {
-
+        ListNode tmp = this.head;
+        this.head = null;
+        while (tmp != null) {
+            ListNode cur = tmp.next;
+            tmp.next = null;
+            tmp = cur;
+        }
     }
 
     @Override

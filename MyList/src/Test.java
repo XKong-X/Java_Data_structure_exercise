@@ -17,15 +17,20 @@ public class Test {
 
         System.out.println(mySingleList.contains(5));
 
-        mySingleList.addFirst(22);
-        mySingleList.addLast(33);
+        mySingleList.addFirst(11);
+        mySingleList.addLast(11);
         mySingleList.addFirst(11);
         mySingleList.display();
 
-        mySingleList.addIndex(3, 44);
+        mySingleList.addIndex(3, 11);
         mySingleList.display();
 
-        mySingleList.remove(0);
+//        mySingleList.remove(11);
+//        mySingleList.display();
+//
+//        mySingleList.removeAllKey(11);
+//        mySingleList.display();
+        mySingleList.clear();
         mySingleList.display();
     }
 }
