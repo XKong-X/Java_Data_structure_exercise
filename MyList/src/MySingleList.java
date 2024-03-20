@@ -158,7 +158,7 @@ public class MySingleList implements IList {
             tmp = tmp.next;
         }
         if (this.head.val == key) {
-            this.head = null;
+            this.head = this.head.next;
         }
     }
 
