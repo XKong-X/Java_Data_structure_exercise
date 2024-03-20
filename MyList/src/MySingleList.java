@@ -193,4 +193,33 @@ public class MySingleList implements IList {
         }
         System.out.println();
     }
+
+    public void display(ListNode newHead) {
+        ListNode tmp = newHead;
+        while (tmp != null) {
+            System.out.print(tmp.val + " ");
+            tmp = tmp.next;
+        }
+        System.out.println();
+    }
+
+    public ListNode reverseList() {
+        //为空
+        if (this.head == null) {
+            return null;
+        }
+        //只有一个节点
+        if (this.head.next == null) {
+            return this.head;
+        }
+        ListNode tmp = this.head.next;
+        this.head.next = null;
+        while (tmp != null) {
+            ListNode tmpNext = tmp.next;
+            tmp.next = this.head;
+            this.head = tmp;
+            tmp =tmpNext;
+        }
+        return this.head;
+    }
 }

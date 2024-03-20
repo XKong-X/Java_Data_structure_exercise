@@ -18,11 +18,11 @@ public class Test {
         System.out.println(mySingleList.contains(5));
 
         mySingleList.addFirst(11);
-        mySingleList.addLast(11);
-        mySingleList.addFirst(11);
+        mySingleList.addLast(22);
+        mySingleList.addFirst(33);
         mySingleList.display();
 
-        mySingleList.addIndex(3, 11);
+        mySingleList.addIndex(3, 44);
         mySingleList.display();
 
 //        mySingleList.remove(11);
@@ -30,7 +30,10 @@ public class Test {
 //
 //        mySingleList.removeAllKey(11);
 //        mySingleList.display();
-        mySingleList.clear();
+//        mySingleList.clear();
+        mySingleList.reverseList();
         mySingleList.display();
+        MySingleList.ListNode ret = mySingleList.reverseList();
+        mySingleList.display(ret);
     }
 }
