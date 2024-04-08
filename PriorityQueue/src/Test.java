@@ -16,7 +16,7 @@ public class Test {
 
         testHeap.createHeap();
 
-        testHeap.push(80);
+        testHeap.heapSort();
 
         testHeap.pop();
     }

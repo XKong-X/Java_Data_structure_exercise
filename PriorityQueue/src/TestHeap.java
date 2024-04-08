@@ -97,4 +97,13 @@ public class TestHeap {
     public int peek() {
         return elem[0];
     }
+
+    public void heapSort() {
+        int end = usedSize - 1;
+        while (end > 0) {
+            swap(0, end);
+            siftDown(0, end);
+            --end;
+        }
+    }
 }
