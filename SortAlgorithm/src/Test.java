@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * ClassName: Test
@@ -10,11 +11,60 @@ import java.util.Arrays;
  * @Version 1.0
  */
 public class Test {
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         int[] arr = {1,12,23,64,25,6};
 //        Sort.insertSort(arr);
 //        System.out.println(Arrays.toString(arr));
-        Sort.shellSort(arr);
+//        Sort.shellSort(arr);
+//        System.out.println(Arrays.toString(arr));
+        Sort.selectSort(arr);
         System.out.println(Arrays.toString(arr));
+    }
+
+    //逆序初始化
+    private static void initOrder(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = arr.length - i;
+        }
+    }
+
+    private static void notOrder(int[] arr) {
+        Random random = new Random();
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = random.nextInt(1_0000);
+        }
+    }
+
+    private static void testInsert(int[] arr) {
+        int[] tmpArr = Arrays.copyOf(arr, arr.length);
+        long startTime = System.currentTimeMillis();
+        Sort.insertSort(tmpArr);
+        long endTime = System.currentTimeMillis();
+        System.out.println("插入排序耗时：" + (endTime - startTime));
+    }
+
+    private static void testShellSort(int[] arr) {
+        int[] tmpArr = Arrays.copyOf(arr, arr.length);
+        long startTime = System.currentTimeMillis();
+        Sort.shellSort(tmpArr);
+        long endTime = System.currentTimeMillis();
+        System.out.println("希尔排序耗时：" + (endTime - startTime));
+    }
+
+    private static void testSelectSort(int[] arr) {
+        int[] tmpArr = Arrays.copyOf(arr, arr.length);
+        long startTime = System.currentTimeMillis();
+        Sort.selectSort(tmpArr);
+        long endTime = System.currentTimeMillis();
+        System.out.println("选择排序耗时：" + (endTime - startTime));
+    }
+
+    public static void main(String[] args) {
+        int[] arr = new int[10_0000];
+        initOrder(arr);
+//        notOrder(arr);
+        testInsert(arr);
+        testSelectSort(arr);
+        testShellSort(arr);
     }
 }

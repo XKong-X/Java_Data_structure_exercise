@@ -10,9 +10,7 @@
 public class Sort {
     /**
      * 插入排序
-     * 时间复杂度：
-     * 最坏情况：O(n^2)
-     * 最好情况：O(n)
+     * 时间复杂度：最坏情况：O(n^2),最好情况：O(n)
      * 空间复杂度：O(1)
      * 稳定性：稳定
      *
@@ -40,6 +38,7 @@ public class Sort {
      * 时间复杂度：约O(n^1.3)
      * 空间复杂度：O(1)
      * 稳定性：不稳定
+     *
      * @param arr
      */
     public static void shellSort(int[] arr) {
@@ -71,5 +70,35 @@ public class Sort {
             }
             arr[j + gap] = tmp;
         }
+    }
+
+    /**
+     * 选择排序
+     * 时间复杂度：O(n^2)
+     * 空间复杂度：O(1)
+     * 稳定性：不稳定
+     *
+     * @param arr
+     */
+    public static void selectSort(int[] arr) {
+        int len = arr.length;
+        for (int i = 0; i < len; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < len; j++) {
+                if (arr[j] < arr[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            if (minIndex != i) {
+                swap(arr, i, minIndex);
+            }
+        }
+    }
+
+    //交换
+    private static void swap(int[] arr, int a, int b) {
+        int tmp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = tmp;
     }
 }
