@@ -12,7 +12,9 @@ import java.util.Arrays;
 public class Test {
     public static void main(String[] args) {
         int[] arr = {1,12,23,64,25,6};
-        Sort.insertSort(arr);
+//        Sort.insertSort(arr);
+//        System.out.println(Arrays.toString(arr));
+        Sort.shellSort(arr);
         System.out.println(Arrays.toString(arr));
     }
 }
