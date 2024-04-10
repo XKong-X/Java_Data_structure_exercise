@@ -134,4 +134,75 @@ public class Sort {
             --r;
         }
     }
+
+    //建堆
+    private static void createHeap(int[] arr) {
+        int child = arr.length - 1;
+        for (int parent = (child - 1) / 2; parent >= 0; --parent) {
+            siftDown(arr, parent, arr.length);
+        }
+    }
+
+    //向下调整
+    private static void siftDown(int[] arr, int parent, int length) {
+        int child = parent * 2 + 1;//假设左树最大
+        //child < length说明有子树没遍历
+        while (child < length) {
+            //child+1 < length用来防止数组越界
+            if (child + 1 < length && arr[child] < arr[child + 1]) {
+                ++child;//把左树坐标变成右树坐标（因为右树更大）
+            }
+            //子节点数据大于父节点数据则交换
+            if (arr[child] > arr[parent]) {
+                swap(arr, child, parent);
+                parent = child;//交换完成后把子节点坐标变成父节点坐标
+                child = parent * 2 + 1;//新的子节点坐标
+            } else {
+                break;
+            }
+        }
+    }
+
+    /**
+     * 堆排序
+     * 时间复杂度：O(n*log₂n)
+     * 空间复杂度：O(1)
+     * 稳定性：不稳定
+     *
+     * @param arr
+     */
+    public static void heapSort(int[] arr) {
+        createHeap(arr);
+        int end = arr.length - 1;
+        while (end > 0) {
+            swap(arr, 0, end);
+            siftDown(arr, 0, end);
+            --end;
+        }
+    }
+
+    /**
+     * 冒泡排序
+     * 时间复杂度（优化情况下）：最坏情况：O(n^2),最好情况：O(n)
+     * 空间复杂度：O(1)
+     * 稳定性：稳定
+     * 优化：判断上一次比较是否有交换
+     *
+     * @param arr
+     */
+    public static void bubbleSort(int[] arr) {
+        for (int i = 0; i < arr.length; ++i) {
+            boolean flag = false;//优化代码
+            for (int j = 0; j < arr.length - 1 - i; ++j) {
+                if (arr[j] > arr[j + 1]) {
+                    swap(arr, j, j + 1);
+                    flag = true;
+                }
+            }
+            //优化代码
+            if (!flag) {
+                break;
+            }
+        }
+    }
 }
