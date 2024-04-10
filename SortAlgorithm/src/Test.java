@@ -11,13 +11,15 @@ import java.util.Random;
  * @Version 1.0
  */
 public class Test {
-    public static void main1(String[] args) {
+    public static void main(String[] args) {
         int[] arr = {1,12,23,64,25,6};
 //        Sort.insertSort(arr);
 //        System.out.println(Arrays.toString(arr));
 //        Sort.shellSort(arr);
 //        System.out.println(Arrays.toString(arr));
-        Sort.selectSort(arr);
+//        Sort.selectSort(arr);
+//        System.out.println(Arrays.toString(arr));
+        Sort.selectSort2(arr);
         System.out.println(Arrays.toString(arr));
     }
 
@@ -59,7 +61,7 @@ public class Test {
         System.out.println("选择排序耗时：" + (endTime - startTime));
     }
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         int[] arr = new int[10_0000];
         initOrder(arr);
 //        notOrder(arr);

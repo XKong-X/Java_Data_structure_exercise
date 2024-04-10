@@ -101,4 +101,37 @@ public class Sort {
         arr[a] = arr[b];
         arr[b] = tmp;
     }
+
+    /**
+     * 双向选择排序
+     * 时间复杂度：O(n^2)
+     * 空间复杂度：O(1)
+     * 稳定性：不稳定
+     *
+     * @param arr
+     */
+    public static void selectSort2(int[] arr) {
+        int l = 0;
+        int r = arr.length - 1;
+        while (l < r) {
+            int minIndex = l;
+            int maxIndex = l;
+            for (int i = l + 1; i <= r; ++i) {
+                if (arr[i] < arr[minIndex]) {
+                    minIndex = i;
+                }
+                if (arr[i] > arr[maxIndex]) {
+                    maxIndex = i;
+                }
+            }
+            swap(arr, minIndex, l);
+            //防止第一个是最大值和最小的交换后跑了（最大值的位置变成了最小值）
+            if (maxIndex == l) {
+                maxIndex = minIndex;
+            }
+            swap(arr, maxIndex, r);
+            ++l;
+            --r;
+        }
+    }
 }
