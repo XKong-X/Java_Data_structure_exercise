@@ -205,4 +205,82 @@ public class Sort {
             }
         }
     }
+
+    /**
+     * 快速排序
+     * 时间复杂度：最好情况：O(n*log₂n)，最坏情况(逆序/有序)：O(n^2)
+     * 空间复杂度：最好情况：O(log₂n)，最坏情况(逆序/有序)：O(n)
+     * 稳定性：不稳定
+     *
+     * @param arr
+     */
+    public static void quickSort(int[] arr) {
+        quick(arr, 0, arr.length - 1);
+    }
+
+    //递归执行partitionHoare方法
+    private static void quick(int[] arr, int start, int end) {
+        if (start >= end) {
+            return;
+        }
+        int pivot = partitionPointer(arr, start, end);
+        quick(arr, start, pivot - 1);
+        quick(arr, pivot + 1, end);
+    }
+
+    //Hoare法
+    private static int partitionHoare(int[] arr, int l, int r) {
+        int tmp = arr[l];
+        int i = l;//记录左边界
+        while (l < r) {
+            //l < r防止数组越界和超出左边界，取等号是因为要跟自己比较一次
+            while (l < r && arr[r] >= tmp) {
+                --r;
+            }
+            //l < r防止数组越界和超出右边界，取等号是因为要跟自己比较一次
+            while (l < r && arr[l] <= tmp) {
+                ++l;
+            }
+            swap(arr, l, r);
+        }
+        //代码到这l==r
+        swap(arr, i, l);//交换左边界和l，r相遇位置的值
+        return l;//返回l，r相遇的位置
+    }
+
+    //挖坑法(Hoare法的优化版)
+    private static int partitionHole(int[] arr, int l, int r) {
+        int tmp = arr[l];
+        while (l < r) {
+            //l < r防止数组越界和超出左边界，取等号是因为要跟自己比较一次
+            while (l < r && arr[r] >= tmp) {
+                --r;
+            }
+            arr[l] = arr[r];
+            //l < r防止数组越界和超出右边界，取等号是因为要跟自己比较一次
+            while (l < r && arr[l] <= tmp) {
+                ++l;
+            }
+            arr[r] = arr[l];
+        }
+        //代码到这l==r
+        arr[l] = tmp;//把左边界的值填到l，r相遇位置
+        return l;//返回l，r相遇的位置
+    }
+
+    //前后指针法
+    private static int partitionPointer(int[] arr, int l, int r) {
+        int prev = l;
+        int cur = l + 1;
+        while (cur <= r) {
+            //arr[cur] < arr[l]是交换条件，arr[++prev] != arr[cur]防止跟自己交换
+            if (arr[cur] < arr[l] && arr[++prev] != arr[cur]) {
+                swap(arr, prev, cur);//prev记录上一个大于l的位置，cur去找小于l的位置
+            }
+            ++cur;
+        }
+        //代码到这数组遍历完成
+        swap(arr, prev, l);//交换左边界和最后一个大于左边界位置的值
+        return prev;
+    }
 }

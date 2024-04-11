@@ -65,30 +65,36 @@ public class Test {
         System.out.println("冒泡排序耗时：" + (endTime - startTime));
     }
 
-    public static void main1(String[] args) {
-        int[] arr = {1,12,23,64,25,6};
-//        Sort.insertSort(arr);
-//        System.out.println(Arrays.toString(arr));
-//        Sort.shellSort(arr);
-//        System.out.println(Arrays.toString(arr));
-//        Sort.selectSort(arr);
-//        System.out.println(Arrays.toString(arr));
-//        Sort.selectSort2(arr);
-//        System.out.println(Arrays.toString(arr));
-//        Sort.heapSort(arr);
-//        System.out.println(Arrays.toString(arr));
-        Sort.bubbleSort(arr);
-        System.out.println(Arrays.toString(arr));
+    private static void testQuickSort(int[] arr) {
+        int[] tmpArr = Arrays.copyOf(arr, arr.length);
+        long startTime = System.currentTimeMillis();
+        Sort.quickSort(tmpArr);
+        long endTime = System.currentTimeMillis();
+        System.out.println("快速排序耗时：" + (endTime - startTime));
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[10_0000];
-        initOrder(arr);
-//        notOrder(arr);
+        int[] arr = {1,12,23,64,25,6};
+//        int[] arr = {100,3,15,61,17,8};
+//        Sort.insertSort(arr);
+//        Sort.shellSort(arr);
+//        Sort.selectSort(arr);
+//        Sort.selectSort2(arr);
+//        Sort.heapSort(arr);
+//        Sort.bubbleSort(arr);
+        Sort.quickSort(arr);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    public static void main1(String[] args) {
+        int[] arr = new int[1_0000];
+//        initOrder(arr);
+        notOrder(arr);
         testInsert(arr);
         testSelectSort(arr);
         testShellSort(arr);
         testHeapSort(arr);
         testBubbleSort(arr);
+        testQuickSort(arr);
     }
 }
