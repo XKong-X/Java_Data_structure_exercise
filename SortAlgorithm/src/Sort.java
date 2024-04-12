@@ -242,6 +242,7 @@ public class Sort {
         }
     }
 
+    //用来减少快速排序的递归次数（提高性能）
     private static void insertSort(int[] arr, int left, int right) {
         for (int i = left + 1; i <= right; ++i) {
             int tmp = arr[i];
@@ -373,6 +374,137 @@ public class Sort {
             if (pivot + 1 < end) {
                 stack.push(pivot + 1);
                 stack.push(end);
+            }
+        }
+    }
+
+    /**
+     * 归并排序
+     * 时间复杂度：O(n*log₂n)
+     * 空间复杂度：O(log₂n)
+     * 稳定性：稳定
+     *
+     * @param arr
+     */
+    public static void mergeSort(int[] arr) {
+        mergeSortFun(arr, 0, arr.length - 1);
+    }
+
+    private static void mergeSortFun(int[] arr, int start, int end) {
+        if (start >= end) {
+            return;
+        }
+        int mid = (start + end) / 2;
+        mergeSortFun(arr, start, mid);//把中间值分到左边
+        mergeSortFun(arr, mid + 1, end);
+        //合并
+        merger(arr, start, mid, end);
+    }
+
+    //合并
+    private static void merger(int[] arr, int left, int mid, int right) {
+        int s1 = left;
+        int e1 = mid;//把中间值分到右边
+        int s2 = mid + 1;
+        int e2 = right;
+
+        int[] tmpArr = new int[right - left + 1];//创建新数组用来合并
+        int k = 0;
+
+        while (s1 <= e1 && s2 <= e2) {
+            //把小的先放进tmpArr
+            if (arr[s1] <= arr[s2]) {
+                tmpArr[k++] = arr[s1++];
+            } else {
+                tmpArr[k++] = arr[s2++];
+            }
+        }
+
+        //把较长数组剩下的数据全部拷贝过去
+        while (s1 <= e1) {
+            tmpArr[k++] = arr[s1++];
+        }
+        while (s2 <= e2) {
+            tmpArr[k++] = arr[s2++];
+        }
+
+        //i+left用来避免合并的时候右边的把左边的覆盖掉
+        for (int i = 0; i < tmpArr.length; ++i) {
+            arr[i+left] = tmpArr[i];
+        }
+    }
+
+    /**
+     * 归并排序(迭代)
+     * 时间复杂度：O(n*log₂n)
+     * 空间复杂度：O(n)
+     * 稳定性：稳定
+     *
+     * @param arr
+     */
+    public static void mergeSortIteration(int[] arr) {
+        int gap = 1;//每组数据个数
+        int len = arr.length;
+        while (gap < len) {//不能取等号
+            for (int i = 0; i < len; i = i + gap * 2) {
+                int left = i;
+                int mid = left + gap - 1;
+                int right = mid + gap;
+
+                //防止越界
+                if (mid >= len) {
+                    mid = len - 1;
+                }
+                if (right >= len) {
+                    right = len - 1;
+                }
+
+                merger(arr, left, mid, right);
+            }
+            gap *= 2;
+        }
+    }
+
+    /**
+     * 计数排序
+     * 时间复杂度：O(MAX(n,范围))
+     * 空间复杂度：O(范围)
+     * 稳定性：稳定（这个代码是不稳定的）
+     *
+     * @param arr
+     */
+    public static void countSort(int[] arr) {
+        //求数组的最大值和最小值 O(n)
+        int minVal = 0;
+        int maxVal = 0;
+        for (int i = 0; i < arr.length; ++i) {
+            if (arr[i] < minVal) {
+                minVal = arr[i];
+            }
+            if (arr[i] > maxVal) {
+                maxVal = arr[i];
+            }
+        }
+
+        //确定计数数组的长度并创建数组
+        int len = maxVal - minVal + 1;
+        int[] count = new int[len];
+
+        //把数据的出现次数存入计数数组 O(n)
+        for (int i = 0; i < arr.length; ++i) {
+//            if (arr[i] == i + minVal) {
+//                ++count[i];
+//            }
+            count[arr[i] - minVal]++;
+        }
+
+        //通过计数数组把数据写回原数组
+        int arrIndex = 0;
+        for (int i = 0; i < count.length; ++i) {
+            //清除count中一格的数据
+            while (count[i] > 0) {
+                arr[arrIndex++] = i + minVal;
+                --count[i];
             }
         }
     }

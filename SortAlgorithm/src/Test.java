@@ -81,9 +81,25 @@ public class Test {
         System.out.println("快速排序(迭代)耗时：" + (endTime - startTime));
     }
 
-    public static void main1(String[] args) {
-        int[] arr = {1,12,23,64,25,6};
-//        int[] arr = {100,3,15,61,17,8};
+    private static void testMergeSort(int[] arr) {
+        int[] tmpArr = Arrays.copyOf(arr, arr.length);
+        long startTime = System.currentTimeMillis();
+        Sort.mergeSort(tmpArr);
+        long endTime = System.currentTimeMillis();
+        System.out.println("归并排序(递归)耗时：" + (endTime - startTime));
+    }
+
+    private static void testMergeSortIteration(int[] arr) {
+        int[] tmpArr = Arrays.copyOf(arr, arr.length);
+        long startTime = System.currentTimeMillis();
+        Sort.mergeSortIteration(tmpArr);
+        long endTime = System.currentTimeMillis();
+        System.out.println("归并排序(迭代)耗时：" + (endTime - startTime));
+    }
+
+    public static void main(String[] args) {
+//        int[] arr = {1, 12, 23, 64, 25, 6};
+        int[] arr = {100, 3, 15, 61, 17, 8, 55};
 //        Sort.insertSort(arr);
 //        Sort.shellSort(arr);
 //        Sort.selectSort(arr);
@@ -91,20 +107,25 @@ public class Test {
 //        Sort.heapSort(arr);
 //        Sort.bubbleSort(arr);
 //        Sort.quickSort(arr);
-        Sort.quickSortIteration(arr);
+//        Sort.quickSortIteration(arr);
+//        Sort.mergeSort(arr);
+//        Sort.mergeSort(arr);
+        Sort.countSort(arr);
         System.out.println(Arrays.toString(arr));
     }
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         int[] arr = new int[10_0000];
-//        initOrder(arr);
-        notOrder(arr);
+        initOrder(arr);
+//        notOrder(arr);
         testInsert(arr);
         testSelectSort(arr);
         testShellSort(arr);
         testHeapSort(arr);
-        testBubbleSort(arr);
-//        testQuickSort(arr);
+//        testBubbleSort(arr);
+        testQuickSort(arr);
         testQuickSortIteration(arr);
+        testMergeSort(arr);
+        testMergeSortIteration(arr);
     }
 }
