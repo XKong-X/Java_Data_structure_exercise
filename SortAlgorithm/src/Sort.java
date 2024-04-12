@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 /**
  * ClassName: Sort
  * Package: PACKAGE_NAME
@@ -218,11 +220,62 @@ public class Sort {
         quick(arr, 0, arr.length - 1);
     }
 
-    //递归执行partitionHoare方法
+    //求中间值的位置
+    private static int middleNum(int[] arr, int left, int right) {
+        int mid = (left + right) / 2;
+        if (arr[left] < arr[right]) {
+            if (arr[mid] < arr[left]) {
+                return left;
+            } else if (arr[mid] > arr[right]) {
+                return right;
+            } else {
+                return mid;
+            }
+        } else {
+            if (arr[mid] < arr[right]) {
+                return right;
+            } else if (arr[mid] > arr[left]) {
+                return left;
+            } else {
+                return mid;
+            }
+        }
+    }
+
+    private static void insertSort(int[] arr, int left, int right) {
+        for (int i = left + 1; i <= right; ++i) {
+            int tmp = arr[i];
+            int j = i - 1;
+            for (; j >= 0; --j) {
+                //升序
+                if (tmp < arr[j]) {
+                    arr[j + 1] = arr[j];
+                } else {
+                    break;
+                }
+            }
+            arr[j + 1] = tmp;
+        }
+    }
+
+    //递归执行partitionxxxx方法
     private static void quick(int[] arr, int start, int end) {
         if (start >= end) {
             return;
         }
+
+        //到最后几层的时候已经很有序了，用插入排序来减少递归次数（提高性能）
+        if (end - start <= 15) {
+            insertSort(arr, start, end);
+            return;
+        }
+
+        //让pivot的位置尽量靠近中间
+        //1 2 3 4 5
+        int index = middleNum(arr, start, end);
+        swap(arr, start, index);
+        //3 2 1 4 5
+
         int pivot = partitionPointer(arr, start, end);
         quick(arr, start, pivot - 1);
         quick(arr, pivot + 1, end);
@@ -282,5 +335,45 @@ public class Sort {
         //代码到这数组遍历完成
         swap(arr, prev, l);//交换左边界和最后一个大于左边界位置的值
         return prev;
+    }
+
+    /**
+     * 快速排序(迭代实现)
+     * 时间复杂度：最好情况：O(n*log₂n)，最坏情况(逆序/有序)：O(n^2)
+     * 空间复杂度：最好情况：O(log₂n)，最坏情况(逆序/有序)：O(n)
+     * 稳定性：不稳定
+     *
+     * @param arr
+     */
+    public static void quickSortIteration(int[] arr) {
+        int start = 0;
+        int end = arr.length - 1;
+        Stack<Integer> stack = new Stack<>();
+        int pivot = partitionHole(arr, start, end);
+        //左边还有一个以上的元素
+        if (pivot - 1 > start) {
+            stack.push(start);
+            stack.push(pivot - 1);
+        }
+        //左边还有一个以上的元素
+        if (pivot + 1 < end) {
+            stack.push(pivot + 1);
+            stack.push(end);
+        }
+        while (!stack.empty()) {
+            end = stack.pop();
+            start = stack.pop();
+            pivot = partitionHole(arr, start, end);
+            //左边还有一个以上的元素
+            if (pivot - 1 > start) {
+                stack.push(start);
+                stack.push(pivot - 1);
+            }
+            //左边还有一个以上的元素
+            if (pivot + 1 < end) {
+                stack.push(pivot + 1);
+                stack.push(end);
+            }
+        }
     }
 }

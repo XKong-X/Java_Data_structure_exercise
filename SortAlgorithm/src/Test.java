@@ -70,10 +70,18 @@ public class Test {
         long startTime = System.currentTimeMillis();
         Sort.quickSort(tmpArr);
         long endTime = System.currentTimeMillis();
-        System.out.println("快速排序耗时：" + (endTime - startTime));
+        System.out.println("快速排序(递归)耗时：" + (endTime - startTime));
     }
 
-    public static void main(String[] args) {
+    private static void testQuickSortIteration(int[] arr) {
+        int[] tmpArr = Arrays.copyOf(arr, arr.length);
+        long startTime = System.currentTimeMillis();
+        Sort.quickSortIteration(tmpArr);
+        long endTime = System.currentTimeMillis();
+        System.out.println("快速排序(迭代)耗时：" + (endTime - startTime));
+    }
+
+    public static void main1(String[] args) {
         int[] arr = {1,12,23,64,25,6};
 //        int[] arr = {100,3,15,61,17,8};
 //        Sort.insertSort(arr);
@@ -82,12 +90,13 @@ public class Test {
 //        Sort.selectSort2(arr);
 //        Sort.heapSort(arr);
 //        Sort.bubbleSort(arr);
-        Sort.quickSort(arr);
+//        Sort.quickSort(arr);
+        Sort.quickSortIteration(arr);
         System.out.println(Arrays.toString(arr));
     }
 
-    public static void main1(String[] args) {
-        int[] arr = new int[1_0000];
+    public static void main(String[] args) {
+        int[] arr = new int[10_0000];
 //        initOrder(arr);
         notOrder(arr);
         testInsert(arr);
@@ -95,6 +104,7 @@ public class Test {
         testShellSort(arr);
         testHeapSort(arr);
         testBubbleSort(arr);
-        testQuickSort(arr);
+//        testQuickSort(arr);
+        testQuickSortIteration(arr);
     }
 }
