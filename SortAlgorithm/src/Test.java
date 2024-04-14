@@ -97,7 +97,15 @@ public class Test {
         System.out.println("归并排序(迭代)耗时：" + (endTime - startTime));
     }
 
-    public static void main(String[] args) {
+    private static void testCountSort(int[] arr) {
+        int[] tmpArr = Arrays.copyOf(arr, arr.length);
+        long startTime = System.currentTimeMillis();
+        Sort.mergeSortIteration(tmpArr);
+        long endTime = System.currentTimeMillis();
+        System.out.println("计数排序耗时：" + (endTime - startTime));
+    }
+
+    public static void main1(String[] args) {
 //        int[] arr = {1, 12, 23, 64, 25, 6};
         int[] arr = {100, 3, 15, 61, 17, 8, 55};
 //        Sort.insertSort(arr);
@@ -114,10 +122,10 @@ public class Test {
         System.out.println(Arrays.toString(arr));
     }
 
-    public static void main1(String[] args) {
+    public static void main(String[] args) {
         int[] arr = new int[10_0000];
         initOrder(arr);
-//        notOrder(arr);
+        notOrder(arr);
         testInsert(arr);
         testSelectSort(arr);
         testShellSort(arr);
@@ -127,5 +135,6 @@ public class Test {
         testQuickSortIteration(arr);
         testMergeSort(arr);
         testMergeSortIteration(arr);
+        testCountSort(arr);
     }
 }
