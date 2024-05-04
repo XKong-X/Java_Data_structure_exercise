@@ -1,2 +1,2 @@
-# Java_Data_structure_exericse
+# Java_Data_structure_exercise
 Java数据结构代码练习
