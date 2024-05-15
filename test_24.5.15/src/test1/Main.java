@@ -9,7 +9,7 @@ package test1;
  * @Create 2024/5/15 18:03
  * @Version 1.0
  */
-public class main {
+public class Main {
 }
 
 class ListNode {
