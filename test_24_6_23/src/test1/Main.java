@@ -8,41 +8,49 @@ package test1;
  * Time: 0:36
  * Version:
  */
-
 class ListNode {
     int val;
-    ListNode next = null;
+    ListNode next;
 
-    public ListNode(int val) {
+    ListNode() {
+    }
+
+    ListNode(int val) {
         this.val = val;
+    }
+
+    ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
     }
 }
 
 class Solution {
-    public ListNode reverseBetween(ListNode head, int m, int n) {
-        // 方法一（迭代）
-        if (head.next == null) {
-            return head;
+    public ListNode trainingPlan(ListNode head, int cnt) {
+        // // 方法一
+        // ListNode tmp = head;
+        // int len = 0;
+        // while (tmp != null) {
+        //     tmp = tmp.next;
+        //     ++len;
+        // }
+        // for (tmp = head; len > cnt; --len) {
+        //     tmp = tmp.next;
+        // }
+        // return tmp;
+
+        // 方法二（快慢指针）
+        ListNode slow = head;
+        ListNode fast = head;
+        // fast 指针先走 cnt 步
+        while (cnt > 0) {
+            fast = fast.next;
+            --cnt;
         }
-        // 给链表增加一个头节点
-        ListNode newHead = new ListNode(-1);
-        newHead.next = head;
-        ListNode prev = newHead;// 这里不能为 null 否则会空指针异常
-        ListNode cur = head;
-        // 找到要翻转的区间的起点
-        for (int i = 1; i < m; ++i) {
-            prev = cur;
-            cur = cur.next;
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
         }
-        // 完成指定区间内的翻转
-        for (int i = m; i < n; ++i) {
-            ListNode curNext = cur.next;
-            cur.next = curNext.next;
-            // System.out.println(cur == prev.next);// 第二次会输出 false 说明 cur != prev.next,因此不能用 cur
-            curNext.next = prev.next;// prev 不会跟随 cur 往后移动
-            prev.next = curNext;
-        }
-        // 返回时去掉表头
-        return newHead.next;
+        return slow;
     }
 }
